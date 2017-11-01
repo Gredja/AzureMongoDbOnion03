@@ -1,5 +1,3 @@
-using System;
-
 namespace AzureMongoDbOnion03.Models
 {
     public class ErrorViewModel

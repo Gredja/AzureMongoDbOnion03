@@ -14,7 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AzureMongoDbOnion03.Domain.Services\AzureMongoDbOnion03.Domain.Services.csproj" />
+    <ProjectReference Include="..\AzureMongoDbOnion03.Domain\AzureMongoDbOnion03.Domain.csproj" />
     <ProjectReference Include="..\AzureMongoDbOnion03.Infrastructure.Data\AzureMongoDbOnion03.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Providers\" />
   </ItemGroup>
 
 </Project>

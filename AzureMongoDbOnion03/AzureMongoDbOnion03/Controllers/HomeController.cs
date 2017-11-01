@@ -1,24 +1,23 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Infrastructure.Data;
+using AzureMongoDbOnion03.Domain.Services.DbServices;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDbOnion03.Models;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AzureMongoDbOnion03.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository _repository;
+        private readonly IDbService _dbService;
 
-        public HomeController(IRepository repository)
+        public HomeController(IDbService dbService)
         {
-            _repository = repository;
+            _dbService = dbService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var aaa = await _repository.GetAllDebtors();
+            var aaa = await _dbService.GetAllDebtors();
 
             return View();
         }

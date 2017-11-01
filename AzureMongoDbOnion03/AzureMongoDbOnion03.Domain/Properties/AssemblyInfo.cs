@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AzureMongoDbOnion03.Infrastructure.Dto")]
+[assembly: AssemblyTitle("AzureMongoDbOnion03.Domain")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AzureMongoDbOnion03.Infrastructure.Dto")]
+[assembly: AssemblyProduct("AzureMongoDbOnion03.Domain")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ac03e8f5-7c3a-4a04-b749-61ec531e33b0")]
+[assembly: Guid("868a85f5-0fd0-4ed8-95b1-d303ebc2b2c2")]
 
 // Version information for an assembly consists of the following four values:
 //
