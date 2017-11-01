@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AzureMongoDbOnion03.Infrastructure.Data;
+using AzureMongoDbOnion03.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +20,8 @@ namespace AzureMongoDbOnion03
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbrepository();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

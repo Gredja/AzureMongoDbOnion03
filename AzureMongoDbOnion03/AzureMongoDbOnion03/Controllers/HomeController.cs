@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDbOnion03.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AzureMongoDbOnion03.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IRepository _repository;
+
+        public HomeController(IRepository repository)
         {
+            _repository = repository;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var aaa = await _repository.GetAllDebtors();
+
             return View();
         }
 
