@@ -9,8 +9,8 @@ namespace AzureMongoDbOnion03.Domain.Services
         public static IServiceCollection AddDbService(this IServiceCollection services)
         {
             services.AddTransient<IDbService, DbService>();
-
             return services;
         }
+
     }
 }

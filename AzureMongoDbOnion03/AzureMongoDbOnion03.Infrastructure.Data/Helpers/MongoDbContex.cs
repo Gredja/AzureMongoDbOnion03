@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace AzureMongoDbOnion03.Infrastructure.Data.Helpers
 {
-    public class MongoDbContex
+    public class MongoDbContex<T>
     {
         private readonly IMongoDatabase _database;
 
@@ -13,8 +13,6 @@ namespace AzureMongoDbOnion03.Infrastructure.Data.Helpers
             _database = new MongoClient(settings.Value.ConnectionString).GetDatabase(settings.Value.Database);
         }
 
-        public IMongoCollection<Dto.Debtor> Debtors => _database.GetCollection<Dto.Debtor>("Debtor");
-
-        public IMongoCollection<Dto.Credit> Credits => _database.GetCollection<Dto.Credit>("Credit");
+        public IMongoCollection<T> Collection => _database.GetCollection<T>(typeof(T).Name);
     }
 }

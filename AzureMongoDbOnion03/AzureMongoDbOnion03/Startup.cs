@@ -1,4 +1,5 @@
-﻿using AzureMongoDbOnion03.Domain.Services;
+﻿using AutoMapper;
+using AzureMongoDbOnion03.Domain.Services;
 using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,13 +20,11 @@ namespace AzureMongoDbOnion03
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
             services.AddMvc();
 
             services.AddRepository();
             services.AddDbService();
-
-          //  services.BuildServiceProvider();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
