@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Providers\**" />
+    <Content Remove="Providers\**" />
+    <EmbeddedResource Remove="Providers\**" />
+    <None Remove="Providers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
   </ItemGroup>
@@ -17,10 +25,6 @@
     <ProjectReference Include="..\AzureMongoDbOnion03.Domain.Services\AzureMongoDbOnion03.Domain.Services.csproj" />
     <ProjectReference Include="..\AzureMongoDbOnion03.Domain\AzureMongoDbOnion03.Domain.csproj" />
     <ProjectReference Include="..\AzureMongoDbOnion03.Infrastructure.Data\AzureMongoDbOnion03.Infrastructure.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Providers\" />
   </ItemGroup>
 
 </Project>

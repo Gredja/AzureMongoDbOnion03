@@ -6,7 +6,7 @@ namespace AzureMongoDbOnion03.Domain
     {
         public string Id { get; set; }
 
-        public string DebtorId { get; set; }
+        public string ForeignId { get; set; }
 
         public string Currency { get; set; }
 

@@ -6,7 +6,7 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
     {
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
-            services.AddTransient<IRepository, Repository>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             return services;
         }
     }
