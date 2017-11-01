@@ -32,22 +32,24 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
             return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoCredits);
         }
 
-        public Task AddDebtor(Debtor debtor)
+        public async Task AddDebtor(Debtor debtor)
+        {
+           var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
+            await _debtorRepository.AddOne(dtoDebtor);
+        }
+
+        public async Task AddCredit(Credit credit)
+        {
+            var dtoCredit = _mapper.Map<Credit, Dto.Credit>(credit);
+            await _creditRepository.AddOne(dtoCredit);
+        }
+
+        public Task<DeleteResult> DeleteDebtor(string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task AddCredit(Credit credit)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<DeleteResult> DeleteDebtor(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<DeleteResult> DeleteCredit(int id)
+        public Task<DeleteResult> DeleteCredit(string id)
         {
             throw new System.NotImplementedException();
         }

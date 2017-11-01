@@ -26,13 +26,13 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
             await _context.Collection.InsertOneAsync(t);
         }
 
-        public async Task<DeleteResult> DeleteOne(int id)
+        public async Task<DeleteResult> DeleteOne(string id)
         {
             var filter = Builders<T>.Filter.Eq("Id", id);
             return await _context.Collection.DeleteOneAsync(filter);
         }
 
-        public async Task<DeleteResult> DeleteMany(int foreignId)
+        public async Task<DeleteResult> DeleteMany(string foreignId)
         {
             var filter = Builders<T>.Filter.Eq("ForeignId", foreignId);
             return await _context.Collection.DeleteManyAsync(filter);

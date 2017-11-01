@@ -8,8 +8,8 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
     {
         Task<IEnumerable<T>> GetAll();
         Task AddOne(T t);
-        Task<DeleteResult> DeleteOne(int id);
-        Task<DeleteResult> DeleteMany(int foreignId);
+        Task<DeleteResult> DeleteOne(string id);
+        Task<DeleteResult> DeleteMany(string foreignId);
 
         //    Task<DeleteResult> DeleteDebtor(Dto.Debtor debtor);
         //    Task<UpdateResult> UpdateDebtor(Dto.Debtor debtor);
