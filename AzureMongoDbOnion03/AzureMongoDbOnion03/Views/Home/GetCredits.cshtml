@@ -1,6 +1,6 @@
 ﻿@using AzureMongoDbOnion03.ViewModels
 
-@model IEnumerable<AzureMongoDbOnion03.ViewModels.MoneyPlusDebtorName>
+@model IEnumerable<MoneyPlusDebtorName>
 
 @foreach (var creditPlusDebtorName in Model)
 {
@@ -11,3 +11,4 @@
         <td>@creditPlusDebtorName.Credit.Comment</td>
         <td>@Html.ActionLink("Repay", "Repay", creditPlusDebtorName.Credit)</td>
     </tr>
+}

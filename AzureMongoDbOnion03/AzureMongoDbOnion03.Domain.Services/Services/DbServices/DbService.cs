@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AzureMongoDbOnion03.Infrastructure.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Dto = AzureMongoDbOnion03.Infrastructure.Dto.Model;
 
@@ -9,11 +11,11 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
 {
     public class DbService : IDbService
     {
-        private readonly IRepository<Infrastructure.Dto.Model.Debtor> _debtorRepository;
+        private readonly IRepository<Dto.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
         private readonly IMapper _mapper;
 
-        public DbService(IRepository<Infrastructure.Dto.Model.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IMapper mapper)
+        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IMapper mapper)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
@@ -23,18 +25,20 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         public async Task<IEnumerable<Debtor>> GetAllDebtors()
         {
             var dtoDebtors = await _debtorRepository.GetAll();
-            return _mapper.Map<IEnumerable<Infrastructure.Dto.Model.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
+            return _mapper.Map<IEnumerable<Dto.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
         }
 
-        public async Task<IEnumerable<Credit>> GetAllCredits()
+        public async Task<IEnumerable<Credit>> GetAllCredits(bool active = true)
         {
             var dtoCredits = await _creditRepository.GetAll();
-            return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoCredits);
+            var dtoActiveCredits = dtoCredits.Where(x => x.Active == active);
+
+            return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoActiveCredits);
         }
 
         public async Task AddDebtor(Debtor debtor)
         {
-            var dtoDebtor = _mapper.Map<Debtor, Infrastructure.Dto.Model.Debtor>(debtor);
+            var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
             await _debtorRepository.AddOne(dtoDebtor);
         }
 
@@ -63,10 +67,26 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
             return await _creditRepository.DeleteOne(credit.Id);
         }
 
-        public Task<UpdateResult> UpdateDebtor(Debtor debtor)
+        public async Task<ReplaceOneResult> UpdateDebtor(Debtor debtor)
         {
-            //TODO
-            return null;
+            var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
+            return await _debtorRepository.Update(dtoDebtor);
+        }
+
+        public async Task<ReplaceOneResult> UpdateCredit(Credit credit)
+        {
+            return await Update(credit);
+        }
+
+        public async Task<ReplaceOneResult> RepayCredit(Credit credit)
+        {
+            return await Update(credit);
+        }
+
+        private async Task<ReplaceOneResult> Update(Credit credit)
+        {
+            var dtoCredit = _mapper.Map<Credit, Dto.Credit>(credit);
+            return await _creditRepository.Update(dtoCredit);
         }
     }
 }

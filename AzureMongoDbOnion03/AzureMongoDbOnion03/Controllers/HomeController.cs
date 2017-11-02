@@ -1,9 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using AzureMongoDbOnion03.Models;
+using Microsoft.AspNetCore.Routing;
 
 namespace AzureMongoDbOnion03.Controllers
 {
@@ -16,19 +19,64 @@ namespace AzureMongoDbOnion03.Controllers
             _dbService = dbService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string currency = "")
         {
-            //var aaa = await _dbService.GetAllDebtors();
+            var debtors = await _dbService.GetAllDebtors();
+            var credits = await _dbService.GetAllCredits();
 
-            return View();
+            IEnumerable<MoneyPlusDebtorName> creditPlusDebtorNames;
+
+            var creditsArray = credits as Credit[] ?? credits.ToArray();
+            var debtorsArray = debtors as Debtor[] ?? debtors.ToArray();
+
+            if (!string.IsNullOrEmpty(currency))
+            {
+                creditPlusDebtorNames = creditsArray.Join(debtorsArray, arg => arg.ForeignId, arg => arg.Id,
+                        (credit, debtor) => new MoneyPlusDebtorName { Credit = credit, DebtorName = debtor.Name })
+                    .Where(arg => arg.Credit.Currency == currency);
+            }
+            else
+            {
+                creditPlusDebtorNames = creditsArray.Join(debtorsArray, arg => arg.ForeignId, arg => arg.Id,
+                    (credit, debtor) => new MoneyPlusDebtorName { Credit = credit, DebtorName = debtor.Name });
+            }
+
+            var viewModel = new HomeIndexViewModel
+            {
+                Credits = creditsArray,
+                Debtors = debtorsArray,
+                CreditPlusDebtorNames = creditPlusDebtorNames,
+                NewCredit = new Credit()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCredit(HomeIndexViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                viewModel.NewCredit.Id = Guid.NewGuid().ToString();
+                await _dbService.AddCredit(viewModel.NewCredit);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Repay(Credit credit)
         {
-            //TODO
-           // await _dbService.RepayCredit(credit);
+            var active = credit.GetType().GetProperty("Active");
+            active.SetValue(credit, false);
+
+            await _dbService.RepayCredit(credit);
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetCurrency(HomeIndexViewModel viewModel)
+        {
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", currency = viewModel.SelectedCurrency }));
         }
     }
 }

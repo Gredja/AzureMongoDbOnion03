@@ -39,12 +39,10 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
             return await _context.Collection.DeleteManyAsync(filter);
         }
 
-        public async Task<UpdateResult> Update(T t)
+        public async Task<ReplaceOneResult> Update(T t)
         {
             var filter = Builders<T>.Filter.Eq("Id", t.Id);
-            var update = Builders<T>.Update.Set(s => s, t);
-
-            return await _context.Collection.UpdateOneAsync(filter, update);
+            return await _context.Collection.ReplaceOneAsync(filter, t);
         }
 
 

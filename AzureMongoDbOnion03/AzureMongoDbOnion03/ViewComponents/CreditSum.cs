@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
+using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,16 +14,18 @@ namespace AzureMongoDbOnion03.ViewComponents
             _dbService = dbService;
         }
 
-        public async Task<string> Invoke()
+        public string Invoke()
         {
             var result = string.Empty;
-            var credits = await _dbService.GetAllCredits();
+            var credits =  _dbService.GetAllCredits(active: true).Result;
 
             if (credits != null)
             {
-                result = $"Вам должны: \n USD - {credits.Where(x => x.Currency == "USD").Sum(s => s.Amount)} \n" +
-                         $"EUR - {credits.Where(x => x.Currency == "EUR").Sum(s => s.Amount)} \n" +
-                         $"BYN - {credits.Where(x => x.Currency == "BYN").Sum(s => s.Amount)} \n";
+                var creditsArray = credits as Credit[] ?? credits.ToArray();
+
+                result = $"Вам должны: \n USD - {creditsArray.Where(x => x.Currency == "USD").Sum(s => s.Amount)} \n" +
+                         $"EUR - {creditsArray.Where(x => x.Currency == "EUR").Sum(s => s.Amount)} \n" +
+                         $"BYN - {creditsArray.Where(x => x.Currency == "BYN").Sum(s => s.Amount)} \n";
             }
 
             return result;
