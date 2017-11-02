@@ -17,7 +17,7 @@ namespace AzureMongoDbOnion03.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var aaa = await _dbService.GetAllDebtors();
+            //var aaa = await _dbService.GetAllDebtors();
 
             return View();
         }
