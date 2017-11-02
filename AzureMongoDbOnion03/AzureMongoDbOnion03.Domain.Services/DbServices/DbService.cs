@@ -7,7 +7,7 @@ using Dto = AzureMongoDbOnion03.Infrastructure.Dto;
 
 namespace AzureMongoDbOnion03.Domain.Services.DbServices
 {
-    public class DbService : IDbService 
+    public class DbService : IDbService
     {
         private readonly IRepository<Dto.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
@@ -34,7 +34,7 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
 
         public async Task AddDebtor(Debtor debtor)
         {
-           var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
+            var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
             await _debtorRepository.AddOne(dtoDebtor);
         }
 
@@ -44,14 +44,23 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
             await _creditRepository.AddOne(dtoCredit);
         }
 
-        public Task<DeleteResult> DeleteDebtor(string id)
+        public async Task<DeleteResult> DeleteDebtor(Debtor debtor)
         {
-            throw new System.NotImplementedException();
+            DeleteResult debtorDeleteResult = null;
+
+            var credirDeleteResult = await _creditRepository.DeleteMany(debtor.Id);
+
+            if (credirDeleteResult.IsAcknowledged)
+            {
+                debtorDeleteResult = await _debtorRepository.DeleteOne(debtor.Id);
+            }
+
+            return debtorDeleteResult;
         }
 
-        public Task<DeleteResult> DeleteCredit(string id)
+        public async Task<DeleteResult> DeleteCredit(Credit credit)
         {
-            throw new System.NotImplementedException();
+            return await _creditRepository.DeleteOne(credit.Id);
         }
     }
 }
