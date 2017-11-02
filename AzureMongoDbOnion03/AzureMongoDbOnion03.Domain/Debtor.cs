@@ -7,7 +7,7 @@ namespace AzureMongoDbOnion03.Domain
     {
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите имя")]
         public string Name { get; set; }
 
         public override string ToString()

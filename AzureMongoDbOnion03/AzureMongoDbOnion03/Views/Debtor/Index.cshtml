@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using AzureMongoDbOnion03.Domain
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<table>
+    <tr>
+        <h2>
+            @Localizer["Title"]
+        </h2>
+
+    </tr>
+    <tr>
+        <td>
+            @Html.Partial("DebtorsList")
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.Partial("NewDebtor", new Debtor())
+        </td>
+    </tr>
+
+</table>

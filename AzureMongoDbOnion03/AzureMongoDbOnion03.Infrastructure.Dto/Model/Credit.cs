@@ -1,13 +1,11 @@
 ﻿using System;
+using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AzureMongoDbOnion03.Infrastructure.Dto
+namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
 {
-    public class Credit
+    public class Credit : BaseModel
     {
-        [BsonId]
-        public string Id { get; set; }
-
         [BsonRequired]
         public string ForeignId { get; set; }
 

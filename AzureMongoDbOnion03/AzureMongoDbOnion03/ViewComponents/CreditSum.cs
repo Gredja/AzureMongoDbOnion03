@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Domain.Services.DbServices;
+using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureMongoDbOnion03.ViewComponents

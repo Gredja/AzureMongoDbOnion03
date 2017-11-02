@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Infrastructure.Data.Helpers;
 using AzureMongoDbOnion03.Infrastructure.Data.Model;
+using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace AzureMongoDbOnion03.Infrastructure.Data
 {
-    public class Repository<T> : IRepository<T> where T :class
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
         private readonly MongoDbContex<T> _context;
 
@@ -38,6 +39,14 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
             return await _context.Collection.DeleteManyAsync(filter);
         }
 
+        public async Task<UpdateResult> Update(T t)
+        {
+            var filter = Builders<T>.Filter.Eq("Id", t.Id);
+            var update = Builders<T>.Update.Set(s => s, t);
+
+            return await _context.Collection.UpdateOneAsync(filter, update);
+        }
+
 
         //public async Task<DeleteResult> DeleteDebtor(Dto.Debtor debtor)
         //{
@@ -49,8 +58,7 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
 
         //public async Task<UpdateResult> UpdateDebtor(Dto.Debtor debtor)
         //{
-        //    var filter = Builders<Dto.Debtor>.Filter.Eq(s => s.Id, debtor.Id);
-        //    var update = Builders<Dto.Debtor>.Update.Set(s => s, debtor);
+        //    
 
         //    return await _context.Debtors.UpdateOneAsync(filter, update);
         //}
@@ -100,6 +108,6 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
         //    return await _context.Credits.DeleteManyAsync(filter);
         //}
 
- 
+
     }
 }

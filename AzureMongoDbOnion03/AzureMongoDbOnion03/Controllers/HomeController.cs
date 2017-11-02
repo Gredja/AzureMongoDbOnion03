@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Domain.Services.DbServices;
+using AzureMongoDbOnion03.Domain;
+using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDbOnion03.Models;
 
@@ -22,23 +23,12 @@ namespace AzureMongoDbOnion03.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Repay(Credit credit)
         {
-            ViewData["Message"] = "Your application description page.";
+            //TODO
+           // await _dbService.RepayCredit(credit);
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("Index");
         }
     }
 }

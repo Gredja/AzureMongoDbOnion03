@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AzureMongoDbOnion03.Infrastructure.Data;
 using MongoDB.Driver;
-using Dto = AzureMongoDbOnion03.Infrastructure.Dto;
+using Dto = AzureMongoDbOnion03.Infrastructure.Dto.Model;
 
-namespace AzureMongoDbOnion03.Domain.Services.DbServices
+namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
 {
     public class DbService : IDbService
     {
-        private readonly IRepository<Dto.Debtor> _debtorRepository;
+        private readonly IRepository<Infrastructure.Dto.Model.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
         private readonly IMapper _mapper;
 
-        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IMapper mapper)
+        public DbService(IRepository<Infrastructure.Dto.Model.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IMapper mapper)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
@@ -23,7 +23,7 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
         public async Task<IEnumerable<Debtor>> GetAllDebtors()
         {
             var dtoDebtors = await _debtorRepository.GetAll();
-            return _mapper.Map<IEnumerable<Dto.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
+            return _mapper.Map<IEnumerable<Infrastructure.Dto.Model.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
         }
 
         public async Task<IEnumerable<Credit>> GetAllCredits()
@@ -34,7 +34,7 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
 
         public async Task AddDebtor(Debtor debtor)
         {
-            var dtoDebtor = _mapper.Map<Debtor, Dto.Debtor>(debtor);
+            var dtoDebtor = _mapper.Map<Debtor, Infrastructure.Dto.Model.Debtor>(debtor);
             await _debtorRepository.AddOne(dtoDebtor);
         }
 
@@ -61,6 +61,12 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
         public async Task<DeleteResult> DeleteCredit(Credit credit)
         {
             return await _creditRepository.DeleteOne(credit.Id);
+        }
+
+        public Task<UpdateResult> UpdateDebtor(Debtor debtor)
+        {
+            //TODO
+            return null;
         }
     }
 }

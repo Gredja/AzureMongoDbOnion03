@@ -27,4 +27,13 @@
     <ProjectReference Include="..\AzureMongoDbOnion03.Infrastructure.Data\AzureMongoDbOnion03.Infrastructure.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Debtor\Index.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Debtor\Index.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

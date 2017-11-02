@@ -1,0 +1,17 @@
+﻿@model IEnumerable<AzureMongoDbOnion03.Domain.Debtor>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<table>
+    @{
+        foreach (var debtor in Model)
+        {
+            <tr>
+                <td>@debtor.Name</td>
+                <td>@Html.ActionLink("Delete", "DeleteDebtor", debtor);</td>
+            </tr>
+        }
+    }
+</table>

@@ -1,4 +1,4 @@
-﻿using AzureMongoDbOnion03.Domain.Services.DbServices;
+﻿using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureMongoDbOnion03.Domain.Services

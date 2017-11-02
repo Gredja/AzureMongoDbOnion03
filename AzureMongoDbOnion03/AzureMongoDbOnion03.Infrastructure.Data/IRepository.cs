@@ -10,9 +10,9 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
         Task AddOne(T t);
         Task<DeleteResult> DeleteOne(string id);
         Task<DeleteResult> DeleteMany(string foreignId);
+        Task<UpdateResult> Update(T t);
 
-        //    Task<DeleteResult> DeleteDebtor(Dto.Debtor debtor);
-        //    Task<UpdateResult> UpdateDebtor(Dto.Debtor debtor);
+
         //    Task<IEnumerable<Dto.Credit>> GetAllCredits(bool active);
         //    Task<IEnumerable<Dto.Credit>> GetCreditsByDebtor(Dto.Debtor debtor);
         //    Task<DeleteResult> DeleteCredit(Dto.Credit credit);

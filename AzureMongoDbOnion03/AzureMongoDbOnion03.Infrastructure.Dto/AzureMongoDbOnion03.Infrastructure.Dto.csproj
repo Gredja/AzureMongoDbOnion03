@@ -49,13 +49,14 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Credit.cs" />
-    <Compile Include="Debtor.cs" />
+    <Compile Include="Model\Base\BaseModel.cs" />
+    <Compile Include="Model\Credit.cs" />
+    <Compile Include="Model\Debtor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

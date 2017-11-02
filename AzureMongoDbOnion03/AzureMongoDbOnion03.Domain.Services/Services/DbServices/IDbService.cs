@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
-namespace AzureMongoDbOnion03.Domain.Services.DbServices
+namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
 {
     public interface IDbService
     {
@@ -12,5 +12,7 @@ namespace AzureMongoDbOnion03.Domain.Services.DbServices
         Task AddCredit(Credit credit);
         Task<DeleteResult> DeleteDebtor(Debtor debtor);
         Task<DeleteResult> DeleteCredit(Credit credit);
+        Task<UpdateResult> UpdateDebtor(Debtor debtor);
+
     }
 }
