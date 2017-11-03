@@ -1,6 +1,9 @@
-﻿@model AzureMongoDbOnion03.ViewModels.HomeIndexViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model AzureMongoDbOnion03.ViewModels.HomeIndexViewModel
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Home Page";
+    @Localizer["PageTitle"]
 }
 
 @await Component.InvokeAsync("CreditSum")

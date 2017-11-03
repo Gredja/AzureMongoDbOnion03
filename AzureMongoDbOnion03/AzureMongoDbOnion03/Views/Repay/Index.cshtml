@@ -1,1 +1,16 @@
-﻿
+﻿@using AzureMongoDbOnion03.ViewModels
+@model  IEnumerable<MoneyPlusDebtorName>
+
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Валюта</th>
+        <th>Сумма</th>
+        <th>Коментарий</th>
+    </tr>
+    </thead>
+
+    @Html.Partial("GetRepays", Model)
+
+</table>
