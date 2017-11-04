@@ -78,5 +78,15 @@ namespace AzureMongoDbOnion03.Controllers
         {
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", currency = viewModel.SelectedCurrency }));
         }
+
+        public IActionResult Edit(Credit credit)
+        {
+            if (credit != null)
+            {
+                return RedirectToAction("Index", "CreditEdit", credit);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
