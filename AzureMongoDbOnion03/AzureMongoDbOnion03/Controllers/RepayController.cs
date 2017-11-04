@@ -22,8 +22,6 @@ namespace AzureMongoDbOnion03.Controllers
             var credits = await _dbService.GetAllCredits(active: false);
 
             var creditsArray = credits as Credit[] ?? credits.ToArray();
-
-
             var debtorsArray = debtors as Debtor[] ?? debtors.ToArray();
 
             var moneyPlusDebtorName = creditsArray.Join(debtorsArray, arg => arg.ForeignId,
