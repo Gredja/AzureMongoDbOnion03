@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AzureMongoDbOnion03.Infrastructure.Data;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Dto = AzureMongoDbOnion03.Infrastructure.Dto.Model;
 

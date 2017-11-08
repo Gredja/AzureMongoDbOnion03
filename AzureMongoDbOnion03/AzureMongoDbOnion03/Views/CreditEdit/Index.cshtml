@@ -1,1 +1,60 @@
-﻿
+﻿@model AzureMongoDbOnion03.Domain.Credit
+
+
+@using (Html.BeginForm("Save", "CreditEdit", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.ForeignId)
+
+    <table>
+        <tr>
+            <td>
+                @ViewData["Debtor"].ToString()
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Валюта: ")
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.Currency, new SelectList(Enum.GetNames(typeof(Currency)), Model.Currency))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Сумма: ")
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Amount)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Дата возврата: ")
+            </td>
+            <td>
+                <div class="form-group input-group-sm">
+                    @Html.TextBoxFor(model => model.ExpirationDate, new { @class = "form-control", placeholder = "Enter Drop-off date here..." })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Коментарий: ")
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Comment)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href='javascript:history.go(-1)'>Back>></a>
+            </td>
+            <td>
+                <input type="submit" value="Add credit" />
+            </td>
+        </tr>
+    </table>
+}
+
+
