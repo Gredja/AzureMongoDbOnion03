@@ -1,0 +1,14 @@
+﻿@using AzureMongoDbOnion03.ViewModels
+
+@model IEnumerable<MoneyPlusDebtorName>
+
+@foreach (var creditPlusDebtorName in Model)
+{
+    <tr>
+        <td>@creditPlusDebtorName.DebtorName</td>
+        <td>@creditPlusDebtorName.Credit.Currency</td>
+        <td>@creditPlusDebtorName.Credit.Amount</td>
+        <td>@creditPlusDebtorName.Credit.Comment</td>
+        <td>@Html.ActionLink("Delete", "Delete", creditPlusDebtorName.Credit)</td>
+    </tr>
+}

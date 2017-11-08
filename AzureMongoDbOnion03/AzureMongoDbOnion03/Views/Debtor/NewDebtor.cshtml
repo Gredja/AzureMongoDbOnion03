@@ -1,0 +1,17 @@
+﻿@model AzureMongoDbOnion03.Domain.Debtor
+
+@using (Html.BeginForm("AddDebtor", "Debtor", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Add debtor" />
+            </td>
+        </tr>
+    </table>
+}

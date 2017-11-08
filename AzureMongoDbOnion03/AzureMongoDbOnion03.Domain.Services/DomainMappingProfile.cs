@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Dto = AzureMongoDbOnion03.Infrastructure.Dto;
+using Dto = AzureMongoDbOnion03.Infrastructure.Dto.Model;
 
 namespace AzureMongoDbOnion03.Domain.Services
 {
