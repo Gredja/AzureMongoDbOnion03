@@ -12,12 +12,14 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
     {
         private readonly IRepository<Dto.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
+        private readonly IRepository<Dto.User> _useRepository;
         private readonly IMapper _mapper;
 
-        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IMapper mapper)
+        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> useRepository, IMapper mapper)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
+            _useRepository = useRepository;
             _mapper = mapper;
         }
 

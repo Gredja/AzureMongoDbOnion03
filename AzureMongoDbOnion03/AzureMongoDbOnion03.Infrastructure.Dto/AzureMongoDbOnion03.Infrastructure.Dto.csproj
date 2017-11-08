@@ -52,6 +52,7 @@
     <Compile Include="Model\Base\BaseModel.cs" />
     <Compile Include="Model\Credit.cs" />
     <Compile Include="Model\Debtor.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

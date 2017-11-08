@@ -2,6 +2,7 @@
 using AutoMapper;
 using AzureMongoDbOnion03.Domain.Services;
 using AzureMongoDbOnion03.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -25,6 +26,12 @@ namespace AzureMongoDbOnion03
             services.AddAutoMapper();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc().AddViewLocalization();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
 
             services.AddRepository();
             services.AddDbService();
@@ -58,6 +65,8 @@ namespace AzureMongoDbOnion03
             });
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
