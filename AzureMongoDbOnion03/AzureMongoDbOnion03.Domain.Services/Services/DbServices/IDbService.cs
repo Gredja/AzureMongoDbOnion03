@@ -8,6 +8,7 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
     {
         Task<IEnumerable<Debtor>> GetAllDebtors();
         Task<IEnumerable<Credit>> GetAllCredits(bool active = true);
+        Task<IEnumerable<User>> GetAllUsers();
         Task AddDebtor(Debtor debtor);
         Task AddCredit(Credit credit);
         Task<DeleteResult> DeleteDebtor(Debtor debtor);
@@ -15,5 +16,8 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         Task<ReplaceOneResult> UpdateDebtor(Debtor debtor);
         Task<ReplaceOneResult> UpdateCredit(Credit credit);
         Task<ReplaceOneResult> RepayCredit(Credit credit);
+        Task AddUser(User user);
+        Task<DeleteResult> DeleteUser(User user);
+        Task<ReplaceOneResult> UpdateUser(User user);
     }
 }

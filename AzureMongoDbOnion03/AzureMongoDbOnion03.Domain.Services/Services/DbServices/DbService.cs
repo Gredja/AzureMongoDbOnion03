@@ -12,14 +12,14 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
     {
         private readonly IRepository<Dto.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
-        private readonly IRepository<Dto.User> _useRepository;
+        private readonly IRepository<Dto.User> _userRepository;
         private readonly IMapper _mapper;
 
-        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> useRepository, IMapper mapper)
+        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> userRepository, IMapper mapper)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
-            _useRepository = useRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -35,6 +35,12 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
             var dtoActiveCredits = dtoCredits.Where(x => x.Active == active);
 
             return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoActiveCredits);
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            var dtoUsers = await _userRepository.GetAll();
+            return _mapper.Map<IEnumerable<Dto.User>, IEnumerable<User>>(dtoUsers);
         }
 
         public async Task AddDebtor(Debtor debtor)
@@ -88,6 +94,23 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         {
             var dtoCredit = _mapper.Map<Credit, Dto.Credit>(credit);
             return await _creditRepository.Update(dtoCredit);
+        }
+
+        public async Task AddUser(User user)
+        {
+            var dtoUser = _mapper.Map<User, Dto.User>(user);
+            await _userRepository.AddOne(dtoUser);
+        }
+
+        public async Task<DeleteResult> DeleteUser(User user)
+        {
+            return await _userRepository.DeleteOne(user.Id);
+        }
+
+        public async Task<ReplaceOneResult> UpdateUser(User user)
+        {
+            var dtoUser = _mapper.Map<User, Dto.User>(user);
+            return await _userRepository.Update(dtoUser);
         }
     }
 }

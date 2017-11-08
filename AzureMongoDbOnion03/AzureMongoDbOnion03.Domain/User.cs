@@ -1,4 +1,4 @@
-﻿namespace AzureMongoDbOnion03.Application.Services.Model
+﻿namespace AzureMongoDbOnion03.Domain
 {
     public class User
     {
