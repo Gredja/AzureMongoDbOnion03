@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using AutoMapper;
+using AzureMongoDbOnion03.Application.Services;
 using AzureMongoDbOnion03.Domain.Services;
 using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,11 +31,12 @@ namespace AzureMongoDbOnion03
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Index");
                 });
 
             services.AddRepository();
             services.AddDbService();
+            services.AddUserAunification();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

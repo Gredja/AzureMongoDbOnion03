@@ -15,8 +15,6 @@ namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
         [BsonRequired]
         public int Amount { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
-
         [BsonRequired]
         public bool Active { get; set; } = true;
 

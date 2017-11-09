@@ -10,6 +10,5 @@ namespace AzureMongoDbOnion03.Domain.Services
             services.AddTransient<IDbService, DbService>();
             return services;
         }
-
     }
 }

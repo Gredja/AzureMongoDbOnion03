@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AzureMongoDbOnion03.Domain
 {
@@ -14,8 +13,6 @@ namespace AzureMongoDbOnion03.Domain
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public int Amount { get; set; }
-
-        public DateTime ExpirationDate { get; set; } = DateTime.Today;
 
         public bool Active { get; set; } = true;
 
