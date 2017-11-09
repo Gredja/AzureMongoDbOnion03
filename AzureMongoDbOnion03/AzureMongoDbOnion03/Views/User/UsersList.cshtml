@@ -1,0 +1,17 @@
+﻿@model IEnumerable<AzureMongoDbOnion03.Domain.User>
+
+@{
+    ViewData["Title"] = "User Page";
+}
+
+<table>
+    @{
+        foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td style="padding: 3px">@Html.ActionLink("Delete", "DeleteUser", user)</td>
+            </tr>
+        }
+    }
+</table>

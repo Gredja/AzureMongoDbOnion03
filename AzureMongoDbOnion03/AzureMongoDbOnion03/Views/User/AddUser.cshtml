@@ -1,0 +1,27 @@
+﻿@model AzureMongoDbOnion03.ViewModels.AddUserViewModel
+
+@using (Html.BeginForm("AddUser", "User", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.DropDownListFor(model => Model.SelectedDebtorId, new SelectList(Model.Debtors, "Name", "Id"))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.TextBoxFor(model => model.NewUser.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.TextBoxFor(model => model.NewUser.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Add User"/>
+            </td>
+        </tr>
+    </table>
+}

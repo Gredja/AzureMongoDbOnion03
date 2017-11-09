@@ -13,8 +13,7 @@ namespace AzureMongoDbOnion03.Domain
         [EmailAddress]
         public string Email { get; set; }
 
-        [PasswordPropertyText(true)]
-        [Range(1, 10, ErrorMessage = "Please enter password between 1 and 10")]
+       // [Range(1, 10, ErrorMessage = "Please enter password between 1 and 10")]
         public string Password { get; set; }
 
         public bool IsAdmin { get; set; }

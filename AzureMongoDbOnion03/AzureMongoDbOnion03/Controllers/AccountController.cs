@@ -29,15 +29,19 @@ namespace AzureMongoDbOnion03.Controllers
             if (ModelState.IsValid && user != null)
             {
                 var regUser = await _aunification.TryLogin(user);
-                await Authenticate(regUser.Name);
 
-                if (regUser.IsAdmin)
+                if (regUser != null)
                 {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    //TODO
+                    await Authenticate(regUser.Name);
+
+                    if (regUser.IsAdmin)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        //TODO
+                    }
                 }
             }
 
