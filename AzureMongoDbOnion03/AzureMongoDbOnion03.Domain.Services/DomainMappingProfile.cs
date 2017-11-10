@@ -11,6 +11,8 @@ namespace AzureMongoDbOnion03.Domain.Services
             CreateMap<Dto.Credit, Credit>();
             CreateMap<Debtor, Dto.Debtor>();
             CreateMap<Dto.Debtor, Debtor>();
+            CreateMap<User, Dto.User>();
+            CreateMap<Dto.User, User>();
         }
     }
 }

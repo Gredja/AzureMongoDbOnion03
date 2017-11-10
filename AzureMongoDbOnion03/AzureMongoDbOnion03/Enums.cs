@@ -7,4 +7,10 @@ namespace AzureMongoDbOnion03
         EUR,
         BYN
     }
+
+    public enum Roles
+    {
+        Admin,
+        Debtor
+    }
 }

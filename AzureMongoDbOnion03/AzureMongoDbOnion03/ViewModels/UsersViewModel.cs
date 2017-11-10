@@ -5,7 +5,7 @@ namespace AzureMongoDbOnion03.ViewModels
 {
     public class UsersViewModel
     {
-        public IEnumerable<User> Users { get; set; }
+        public IEnumerable<UserPlusDebtorName> UsersPlusDebtorName { get; set; }
 
         public IEnumerable<Debtor> Debtors { get; set; }
 

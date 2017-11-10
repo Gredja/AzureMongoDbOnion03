@@ -1,5 +1,4 @@
-﻿@using AzureMongoDbOnion03.Domain
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @model AzureMongoDbOnion03.ViewModels.UsersViewModel
 
@@ -12,13 +11,13 @@
     </tr>
     <tr>
         <td>
-            @Html.Partial("UsersList")
+            @Html.Partial("UsersList", Model.UsersPlusDebtorName)
         </td>
     </tr>
 
     <tr>
         <td>
-            @Html.Partial("AddUser", Model)
+            @Html.Partial("NewUser", Model)
         </td>
     </tr>
 

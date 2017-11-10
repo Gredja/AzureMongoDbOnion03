@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AzureMongoDbOnion03.Domain
 {
@@ -7,7 +6,8 @@ namespace AzureMongoDbOnion03.Domain
     {
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public string ForeignId { get; set; }
 
         [Required(ErrorMessage = "Enter e-mail")]
         [EmailAddress]

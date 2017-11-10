@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Application.Services.Auntification;
-using AzureMongoDbOnion03.Domain;
+using AzureMongoDbOnion03.Application.Services.Auntification.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +24,15 @@ namespace AzureMongoDbOnion03.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(AunificatedUser aunificatedUser)
         {
-            if (ModelState.IsValid && user != null)
+            if (ModelState.IsValid && aunificatedUser != null)
             {
-                var regUser = await _aunification.TryLogin(user);
+                var regUser = await _aunification.TryLogin(aunificatedUser);
 
                 if (regUser != null)
                 {
-                    await Authenticate(regUser.Name);
+                    await Authenticate(regUser.Email);
 
                     if (regUser.IsAdmin)
                     {
@@ -48,17 +48,13 @@ namespace AzureMongoDbOnion03.Controllers
             return View("Index");
         }
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(string email)
         {
             // создаем один claim
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-            };
-            // создаем объект ClaimsIdentity
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, email));
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
         }
     }
 }

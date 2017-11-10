@@ -6,7 +6,7 @@ namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
     public class User : BaseModel
     {
         [BsonRequired]
-        public string Name { get; set; }
+        public string ForeignId { get; set; }
 
         [BsonRequired]
         public string Email { get; set; }
@@ -14,6 +14,6 @@ namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
         [BsonRequired]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false;
     }
 }

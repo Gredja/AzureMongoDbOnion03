@@ -2,25 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureMongoDbOnion03.Application.Services.Auntification;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace AzureMongoDbOnion03.Controllers
 {
+
+   // [Authorize("admin")]
     public class HomeController : Controller
     {
         private readonly IDbService _dbService;
+        private readonly IAunification _aunification;
 
-        public HomeController(IDbService dbService)
+        public HomeController(IDbService dbService, IAunification aunification)
         {
             _dbService = dbService;
+            _aunification = aunification;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(string currency = "")
         {
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // await _aunification.LogOut(HttpContext);
+
+
             var debtors = await _dbService.GetAllDebtors();
             var credits = await _dbService.GetAllCredits();
 

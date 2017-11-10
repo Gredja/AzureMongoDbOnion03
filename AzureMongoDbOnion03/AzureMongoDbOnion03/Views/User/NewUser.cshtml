@@ -1,19 +1,28 @@
-﻿@model AzureMongoDbOnion03.ViewModels.AddUserViewModel
+﻿@model AzureMongoDbOnion03.ViewModels.UsersViewModel
 
 @using (Html.BeginForm("AddUser", "User", FormMethod.Post))
 {
     <table>
         <tr>
             <td>
-                @Html.DropDownListFor(model => Model.SelectedDebtorId, new SelectList(Model.Debtors, "Name", "Id"))
+                Debtor:
+            </td>
+            <td>
+                @Html.DropDownListFor(model => Model.SelectedDebtorId, new SelectList(Model.Debtors, "Id", "Name"))
             </td>
         </tr>
         <tr>
+            <td>
+                E-mail:
+            </td>
             <td>
                 @Html.TextBoxFor(model => model.NewUser.Email)
             </td>
         </tr>
         <tr>
+            <td>
+                Password:
+            </td>
             <td>
                 @Html.TextBoxFor(model => model.NewUser.Password)
             </td>
