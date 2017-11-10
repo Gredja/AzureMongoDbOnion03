@@ -1,5 +1,5 @@
 ﻿
-namespace AzureMongoDbOnion03
+namespace AzureMongoDbOnion03.Helpers
 {
     public enum Currency
     {

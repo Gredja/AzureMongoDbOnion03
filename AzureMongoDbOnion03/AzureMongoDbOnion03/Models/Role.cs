@@ -1,4 +1,6 @@
-﻿namespace AzureMongoDbOnion03.Models
+﻿using AzureMongoDbOnion03.Helpers;
+
+namespace AzureMongoDbOnion03.Models
 {
    public class Role
     {
