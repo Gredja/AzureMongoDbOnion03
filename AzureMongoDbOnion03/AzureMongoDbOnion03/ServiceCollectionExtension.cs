@@ -1,7 +1,6 @@
-﻿using AzureMongoDbOnion03.Application.Services.Auntification;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace AzureMongoDbOnion03.Application.Services
+namespace AzureMongoDbOnion03
 {
     public static class ServiceCollectionExtension
     {

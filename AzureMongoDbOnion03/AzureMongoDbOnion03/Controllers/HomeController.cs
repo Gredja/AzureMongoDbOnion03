@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Application.Services.Auntification;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -31,10 +27,14 @@ namespace AzureMongoDbOnion03.Controllers
         [Authorize]
         public async Task<IActionResult> Index(string currency = "")
         {
-            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            // await _aunification.LogOut(HttpContext);
+            var userEmail1 = HttpContext.User.Claims.FirstOrDefault().Value;
 
+            var a = _aunification.LogOut().Status;
+
+
+
+            var userEmail2 = HttpContext.User.Claims.FirstOrDefault().Value;
 
             var debtors = await _dbService.GetAllDebtors();
             var credits = await _dbService.GetAllCredits();

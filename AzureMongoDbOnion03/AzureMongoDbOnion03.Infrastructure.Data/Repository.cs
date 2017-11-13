@@ -22,6 +22,12 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
             return await _context.Collection.Find(_ => true).ToListAsync();
         }
 
+        public async Task<T> GetOne(string id)
+        {
+            var filter = Builders<T>.Filter.Eq("Id", id);
+            return await _context.Collection.Find(filter).FirstAsync();
+        }
+
         public async Task AddOne(T t)
         {
             await _context.Collection.InsertOneAsync(t);

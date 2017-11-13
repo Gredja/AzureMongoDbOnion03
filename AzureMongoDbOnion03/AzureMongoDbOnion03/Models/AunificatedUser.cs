@@ -1,4 +1,4 @@
-﻿namespace AzureMongoDbOnion03.Application.Services.Auntification.Model
+﻿namespace AzureMongoDbOnion03.Models
 {
     public class AunificatedUser
     {

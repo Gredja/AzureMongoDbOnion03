@@ -9,10 +9,10 @@ namespace AzureMongoDbOnion03.Controllers
             //TODO
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string user)
         {
-            //TODO
-            return null;
+            
+            return View();
         }
     }
 }

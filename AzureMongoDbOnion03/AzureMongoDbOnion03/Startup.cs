@@ -1,12 +1,10 @@
 ﻿using System.Globalization;
 using AutoMapper;
-using AzureMongoDbOnion03.Application.Services;
 using AzureMongoDbOnion03.Domain.Services;
 using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

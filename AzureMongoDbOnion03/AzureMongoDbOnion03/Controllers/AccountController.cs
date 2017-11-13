@@ -1,21 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Application.Services.Auntification;
-using AzureMongoDbOnion03.Application.Services.Auntification.Model;
+using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace AzureMongoDbOnion03.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAunification _aunification;
+        private readonly IDbService _dbService;
 
-        public AccountController(IAunification aunification)
+        public AccountController(IAunification aunification, IDbService dbService)
         {
             _aunification = aunification;
+            _dbService = dbService;
         }
 
         public IActionResult Index()
@@ -38,10 +40,9 @@ namespace AzureMongoDbOnion03.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        //TODO
-                    }
+
+                    var debtor = await _dbService.GetDebtorById(regUser.ForeignId);
+                    return RedirectToAction("Index", "UsersCredit", new { user = debtor.Name });
                 }
             }
 

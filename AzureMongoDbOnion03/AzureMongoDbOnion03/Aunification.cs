@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AzureMongoDbOnion03.Application.Services.Auntification.Model;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzureMongoDbOnion03.Application.Services.Auntification
+namespace AzureMongoDbOnion03
 {
     public class Aunification : ControllerBase, IAunification
     {
@@ -25,7 +25,7 @@ namespace AzureMongoDbOnion03.Application.Services.Auntification
             return users.Where(x => x.Email == user.Email).FirstOrDefault(x => x.Password == user.Password);
         }
 
-        public async Task LogOut(HttpContext httpContext)
+        public async Task LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }

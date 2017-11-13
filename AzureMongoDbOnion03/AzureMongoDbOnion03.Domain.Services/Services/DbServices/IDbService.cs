@@ -7,6 +7,7 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
     public interface IDbService
     {
         Task<IEnumerable<Debtor>> GetAllDebtors();
+        Task<Debtor> GetDebtorById(string id); 
         Task<IEnumerable<Credit>> GetAllCredits(bool active = true);
         Task<IEnumerable<User>> GetAllUsers();
         Task AddDebtor(Debtor debtor);

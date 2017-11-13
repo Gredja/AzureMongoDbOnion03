@@ -29,6 +29,12 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
             return _mapper.Map<IEnumerable<Dto.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
         }
 
+        public async Task<Debtor> GetDebtorById(string id)
+        {
+            var debtor = await _debtorRepository.GetOne(id);
+            return _mapper.Map<Dto.Debtor, Debtor>(debtor);
+        }
+
         public async Task<IEnumerable<Credit>> GetAllCredits(bool active = true)
         {
             var dtoCredits = await _creditRepository.GetAll();
