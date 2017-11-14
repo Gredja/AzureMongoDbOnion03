@@ -9,6 +9,7 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         Task<IEnumerable<Debtor>> GetAllDebtors();
         Task<Debtor> GetDebtorById(string id); 
         Task<IEnumerable<Credit>> GetAllCredits(bool active = true);
+        Task<IEnumerable<Credit>> GetAllCreditsByDebtorId(string userId);
         Task<IEnumerable<User>> GetAllUsers();
         Task AddDebtor(Debtor debtor);
         Task AddCredit(Credit credit);

@@ -11,6 +11,6 @@ namespace AzureMongoDbOnion03.Helpers
     public enum Roles
     {
         Admin,
-        Debtor
+        User
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.Helpers;
 using AzureMongoDbOnion03.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,10 +16,9 @@ namespace AzureMongoDbOnion03.Controllers
         private readonly IAunification _aunification;
         private readonly IDbService _dbService;
 
-        public AccountController(IAunification aunification, IDbService dbService)
+        public AccountController(IAunification aunification)
         {
             _aunification = aunification;
-            _dbService = dbService;
         }
 
         public IActionResult Index()
@@ -30,32 +31,38 @@ namespace AzureMongoDbOnion03.Controllers
         {
             if (ModelState.IsValid && aunificatedUser != null)
             {
+                aunificatedUser.Role.Name = Roles.User;
                 var regUser = await _aunification.TryLogin(aunificatedUser);
 
                 if (regUser != null)
                 {
-                    await Authenticate(regUser.Email);
+                    await Authenticate(regUser);
 
                     if (regUser.IsAdmin)
                     {
                         return RedirectToAction("Index", "Home");
                     }
 
-                    var debtor = await _dbService.GetDebtorById(regUser.ForeignId);
-                    return RedirectToAction("Index", "UsersCredit", new { user = debtor.Name });
+                    return RedirectToAction("Index", "UsersCredit", new { userId = regUser.ForeignId });
                 }
+
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
 
             return View("Index");
         }
 
-        private async Task Authenticate(string email)
+        private async Task Authenticate(AunificatedUser user)
         {
-            // создаем один claim
-            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.Name, email));
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Role.Name)
+            };
+       
+            ClaimsIdentity id = new ClaimsIdentity(claims, "CreditApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+           
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }

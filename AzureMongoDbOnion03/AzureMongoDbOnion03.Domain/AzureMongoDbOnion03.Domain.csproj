@@ -182,5 +182,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AzureMongoDbOnion03.Helpers\AzureMongoDbOnion03.Helpers.csproj">
+      <Project>{f0e795e7-e767-45f0-949b-d2e5f97834bb}</Project>
+      <Name>AzureMongoDbOnion03.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

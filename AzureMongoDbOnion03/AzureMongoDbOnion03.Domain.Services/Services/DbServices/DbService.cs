@@ -43,6 +43,14 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
             return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoActiveCredits);
         }
 
+        public async Task<IEnumerable<Credit>> GetAllCreditsByDebtorId(string userId)
+        {
+            var dtoCredits = await _creditRepository.GetAll();
+            var dtoCreditsByDebtorName = dtoCredits.Where(x => x.ForeignId == userId).ToList();
+
+            return _mapper.Map<IEnumerable<Dto.Credit>, IEnumerable<Credit>>(dtoCreditsByDebtorName);
+        }
+
         public async Task<IEnumerable<User>> GetAllUsers()
         {
             var dtoUsers = await _userRepository.GetAll();

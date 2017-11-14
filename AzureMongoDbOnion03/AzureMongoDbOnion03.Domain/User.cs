@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AzureMongoDbOnion03.Helpers;
 
 namespace AzureMongoDbOnion03.Domain
 {
@@ -16,6 +17,6 @@ namespace AzureMongoDbOnion03.Domain
        // [Range(1, 10, ErrorMessage = "Please enter password between 1 and 10")]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
+        public Role Role { get; set; }
     }
 }

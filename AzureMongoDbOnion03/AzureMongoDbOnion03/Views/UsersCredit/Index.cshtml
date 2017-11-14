@@ -1,1 +1,19 @@
-﻿
+﻿@model IEnumerable<AzureMongoDbOnion03.Domain.Credit>
+
+@{
+    Layout = null;
+}
+
+@ViewData["DebtorName"] должен:
+
+<table>
+    @{
+        foreach (var credit in Model)
+        {
+            <tr>
+                <td>@credit.Currency : </td>
+                <td>@credit.Amount</td>
+            </tr>
+        }
+    }
+</table>
