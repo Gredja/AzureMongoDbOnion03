@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.Helpers;
 using AzureMongoDbOnion03.Models;
@@ -31,14 +32,14 @@ namespace AzureMongoDbOnion03.Controllers
         {
             if (ModelState.IsValid && aunificatedUser != null)
             {
-                aunificatedUser.Role.Name = Roles.User;
+                
                 var regUser = await _aunification.TryLogin(aunificatedUser);
 
                 if (regUser != null)
                 {
                     await Authenticate(regUser);
 
-                    if (regUser.IsAdmin)
+                    if (regUser.Role.Name == Roles.Admin)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -52,16 +53,15 @@ namespace AzureMongoDbOnion03.Controllers
             return View("Index");
         }
 
-        private async Task Authenticate(AunificatedUser user)
+        private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Role.Name)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Role?.Name.ToString())
             };
-       
-            ClaimsIdentity id = new ClaimsIdentity(claims, "CreditApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-           
+
+            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }

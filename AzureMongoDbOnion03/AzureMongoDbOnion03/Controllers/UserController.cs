@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.Helpers;
 using AzureMongoDbOnion03.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,9 +47,9 @@ namespace AzureMongoDbOnion03.Controllers
                 {
                     Email = usersViewModel.NewUser.Email,
                     Id = Guid.NewGuid().ToString(),
-                    IsAdmin = false,
                     ForeignId = debtors.FirstOrDefault(x => x.Id == usersViewModel.SelectedDebtorId)?.Id,
-                    Password = usersViewModel.NewUser.Password
+                    Password = usersViewModel.NewUser.Password,
+                    Role = new Role(Roles.User) 
                 };
 
                 await _dbService.AddUser(user);
