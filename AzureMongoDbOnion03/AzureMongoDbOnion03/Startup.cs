@@ -30,7 +30,7 @@ namespace AzureMongoDbOnion03
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
-                    options.Cookie.Name = "CreditApp";
+                    options.Cookie.Name = "ApplicationCookie";
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Index");
                 });
 

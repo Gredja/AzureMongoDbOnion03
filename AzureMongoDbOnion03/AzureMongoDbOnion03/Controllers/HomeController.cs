@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
@@ -11,8 +12,6 @@ using Microsoft.AspNetCore.Routing;
 
 namespace AzureMongoDbOnion03.Controllers
 {
-
-    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IDbService _dbService;
@@ -24,8 +23,20 @@ namespace AzureMongoDbOnion03.Controllers
             _aunification = aunification;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string currency = "")
         {
+            //var userEmail2 = HttpContext.User;
+
+            //ClaimsPrincipal user = HttpContext.User;
+            //var identity = user.Identity as ClaimsIdentity;
+            //var claims = user.Claims.ToList();
+
+            //foreach (Claim claim in claims)
+            //{
+            //    identity.RemoveClaim(claim);
+            //}
+            
             var debtors = await _dbService.GetAllDebtors();
             var credits = await _dbService.GetAllCredits();
 

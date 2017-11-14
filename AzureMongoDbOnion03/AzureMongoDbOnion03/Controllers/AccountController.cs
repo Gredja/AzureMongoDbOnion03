@@ -31,7 +31,6 @@ namespace AzureMongoDbOnion03.Controllers
         {
             if (ModelState.IsValid && aunificatedUser != null)
             {
-                
                 var regUser = await _aunification.TryLogin(aunificatedUser);
 
                 if (regUser != null)
@@ -52,12 +51,17 @@ namespace AzureMongoDbOnion03.Controllers
             return View("Index");
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Role?.Name.ToString())
+                new Claim(ClaimTypes.Role, user.Role?.Name)
             };
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

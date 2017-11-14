@@ -41,7 +41,7 @@ namespace AzureMongoDbOnion03.Controllers
             var debtors = await _dbService.GetAllDebtors();
             var users = await _dbService.GetAllUsers();
 
-            if (!users.Select(x => x.Email != usersViewModel.NewUser.Email).Any())
+            if (!users.Select(x => x.Email == usersViewModel.NewUser.Email).Any())
             {
                 var user = new User
                 {
