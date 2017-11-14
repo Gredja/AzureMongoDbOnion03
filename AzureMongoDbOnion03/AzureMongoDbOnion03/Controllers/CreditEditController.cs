@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureMongoDbOnion03.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CreditEditController : Controller
     {
         private readonly IDbService _dbService;
