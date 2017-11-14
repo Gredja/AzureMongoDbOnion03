@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace AzureMongoDbOnion03
 {

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Routing;
 namespace AzureMongoDbOnion03.Controllers
 {
 
-   // [Authorize("admin")]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IDbService _dbService;
@@ -24,18 +24,8 @@ namespace AzureMongoDbOnion03.Controllers
             _aunification = aunification;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index(string currency = "")
         {
-
-            var userEmail1 = HttpContext.User.Claims.FirstOrDefault().Value;
-
-            var a = _aunification.LogOut().Status;
-
-
-
-            var userEmail2 = HttpContext.User.Claims.FirstOrDefault().Value;
-
             var debtors = await _dbService.GetAllDebtors();
             var credits = await _dbService.GetAllCredits();
 

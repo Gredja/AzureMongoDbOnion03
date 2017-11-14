@@ -24,7 +24,7 @@ namespace AzureMongoDbOnion03.Controllers
             }
 
             var credits = await _dbService.GetAllCreditsByDebtorId(userId);
-            var result = from credit in credits
+            var sumAmount = from credit in credits
                 group credit by credit.Currency
                 into res
                 select new Credit
@@ -33,7 +33,7 @@ namespace AzureMongoDbOnion03.Controllers
                     Currency = res.Select(x => x.Currency).FirstOrDefault()
                 };
 
-            return View(result);
+            return View(sumAmount);
         }
     }
 }

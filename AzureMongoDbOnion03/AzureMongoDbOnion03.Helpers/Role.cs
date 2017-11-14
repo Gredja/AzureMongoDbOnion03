@@ -2,10 +2,10 @@
 {
    public class Role
     {
-        public Roles Name { get; set; }
+        public string Name { get; set; }
         public Role(Roles name)
         {
-            Name = name;
+            Name = name.ToString();
         }
     }
 }
