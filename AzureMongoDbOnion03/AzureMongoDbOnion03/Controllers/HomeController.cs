@@ -8,6 +8,7 @@ using AzureMongoDbOnion03.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 
 namespace AzureMongoDbOnion03.Controllers
 {
@@ -15,10 +16,12 @@ namespace AzureMongoDbOnion03.Controllers
     public class HomeController : Controller
     {
         private readonly IDbService _dbService;
+        private readonly ILogger _logger;
 
-        public HomeController(IDbService dbService)
+        public HomeController(IDbService dbService, ILogger<HomeController> logger)
         {
             _dbService = dbService;
+            _logger = logger;
         }
      
         public async Task<IActionResult> Index(string currency = "")
@@ -50,6 +53,8 @@ namespace AzureMongoDbOnion03.Controllers
                 CreditPlusDebtorNames = creditPlusDebtorNames,
                 NewCredit = new Credit()
             };
+
+            _logger.LogInformation("!!!!Start", "Index");
 
             return View(viewModel);
         }

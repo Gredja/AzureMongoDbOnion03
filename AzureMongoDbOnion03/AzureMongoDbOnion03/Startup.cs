@@ -31,6 +31,7 @@ namespace AzureMongoDbOnion03
             services.AddAutoMapper();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc().AddViewLocalization();
+            services.AddLogging();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
@@ -53,6 +54,12 @@ namespace AzureMongoDbOnion03
                     OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss zzz} [{Level}] {RequestId}-{SourceContext}: {Message}{NewLine}{Exception}"
                 }
             );
+
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log", "log.txt"));
+            loggerFactory.CreateLogger("FileLogger");
+
+            //app.Run(async (context) =>
+
 
             app.UseDeveloperExceptionPage();
 

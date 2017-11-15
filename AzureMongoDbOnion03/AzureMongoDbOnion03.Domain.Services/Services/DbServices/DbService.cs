@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AzureMongoDbOnion03.Infrastructure.Data;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Dto = AzureMongoDbOnion03.Infrastructure.Dto.Model;
 
@@ -14,18 +15,23 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         private readonly IRepository<Dto.Credit> _creditRepository;
         private readonly IRepository<Dto.User> _userRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> userRepository, IMapper mapper)
+        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> userRepository, IMapper mapper, ILogger<DbService> logger)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Debtor>> GetAllDebtors()
         {
             var dtoDebtors = await _debtorRepository.GetAll();
+
+            _logger.LogInformation("Get all Debtors");
+
             return _mapper.Map<IEnumerable<Dto.Debtor>, IEnumerable<Debtor>>(dtoDebtors);
         }
 
