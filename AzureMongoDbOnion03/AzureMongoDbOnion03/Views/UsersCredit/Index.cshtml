@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AzureMongoDbOnion03.Domain.Credit>
+﻿@model AzureMongoDbOnion03.ViewModels.UserCreditsViewModel
 
 @{
     Layout = null;
@@ -6,9 +6,12 @@
 
 @ViewData["DebtorName"] должен:
 
+
+
 <table>
+
     @{
-        foreach (var credit in Model)
+        foreach (var credit in Model.Credits)
         {
             <tr>
                 <td>@credit.Currency : </td>
@@ -17,3 +20,5 @@
         }
     }
 </table>
+
+

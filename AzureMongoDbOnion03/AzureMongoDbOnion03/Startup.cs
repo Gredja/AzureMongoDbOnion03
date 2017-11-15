@@ -1,13 +1,18 @@
 ﻿using System.Globalization;
+using System.IO;
 using AutoMapper;
 using AzureMongoDbOnion03.Domain.Services;
+using AzureMongoDbOnion03.Extensions;
 using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace AzureMongoDbOnion03
 {
@@ -26,6 +31,7 @@ namespace AzureMongoDbOnion03
             services.AddAutoMapper();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc().AddViewLocalization();
+            services.AddLogging();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
@@ -40,8 +46,21 @@ namespace AzureMongoDbOnion03
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddAzureWebAppDiagnostics(
+                new AzureAppServicesDiagnosticsSettings
+                {
+                    OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss zzz} [{Level}] {RequestId}-{SourceContext}: {Message}{NewLine}{Exception}"
+                }
+            );
+
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log", "log.txt"));
+            loggerFactory.CreateLogger("FileLogger");
+
+            //app.Run(async (context) =>
+
+
             app.UseDeveloperExceptionPage();
 
             if (env.IsDevelopment())

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AzureMongoDbOnion03.Infrastructure.Data.Helpers;
 using AzureMongoDbOnion03.Infrastructure.Data.Model;
 using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
+using ILog;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
