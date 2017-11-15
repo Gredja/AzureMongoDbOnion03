@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace AzureMongoDbOnion03
+namespace AzureMongoDbOnion03.Extensions
 {
     public static class ServiceCollectionExtension
     {

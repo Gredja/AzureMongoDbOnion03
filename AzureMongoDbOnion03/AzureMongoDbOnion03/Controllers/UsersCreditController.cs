@@ -1,11 +1,22 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
+using AzureMongoDbOnion03.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebSockets.Internal;
+using Newtonsoft.Json;
+using JsonConvert = MongoDB.Bson.IO.JsonConvert;
 
 namespace AzureMongoDbOnion03.Controllers
 {
+    [Authorize]
     public class UsersCreditController : Controller
     {
         private readonly IDbService _dbService;
@@ -24,6 +35,18 @@ namespace AzureMongoDbOnion03.Controllers
             }
 
             var credits = await _dbService.GetAllCreditsByDebtorId(userId);
+
+            var sumAmount = CreateAmmoutSum(credits);
+            var userCreditsViewModel  = new UserCreditsViewModel
+            {
+                Credits = sumAmount
+            };
+          
+            return View(userCreditsViewModel);
+        }
+
+        private IEnumerable<Credit> CreateAmmoutSum(IEnumerable<Credit> credits)
+        {
             var sumAmount = from credit in credits
                 group credit by credit.Currency
                 into res
@@ -33,7 +56,7 @@ namespace AzureMongoDbOnion03.Controllers
                     Currency = res.Select(x => x.Currency).FirstOrDefault()
                 };
 
-            return View(sumAmount);
+            return sumAmount;
         }
     }
 }
