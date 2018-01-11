@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AzureMongoDbOnion03.Application.Services.Aunification;
+using AzureMongoDbOnion03.Application.Services.Models;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.Helpers;
@@ -62,7 +65,7 @@ namespace AzureMongoDbOnion03.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimTypes.Role, user.RoleId.ToString())
+                new Claim(ClaimTypes.Role, Enum.GetName(typeof(Roles), user.RoleId))
             };
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

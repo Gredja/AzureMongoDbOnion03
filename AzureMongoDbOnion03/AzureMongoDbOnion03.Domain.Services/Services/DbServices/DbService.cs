@@ -80,9 +80,9 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
             return _mapper.Map<IEnumerable<Dto.User>, IEnumerable<User>>(dtoUsers);
         }
 
-        public async Task AddRole(Dto.Role role)
+        public async Task AddRoles(IEnumerable<Dto.Role> roles)
         {
-            await _roleRepository.AddOne(role);
+            await _roleRepository.AddMany(roles);
         }
 
         public async Task AddDebtor(Debtor debtor)

@@ -16,7 +16,7 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         Task<IEnumerable<Credit>> GetAllCredits(bool active = true);
         Task<IEnumerable<Credit>> GetAllCreditsByDebtorId(string userId);
         Task<IEnumerable<User>> GetAllUsers();
-        Task AddRole(Dto.Role role);
+        Task AddRoles(IEnumerable<Dto.Role> roles);
         Task AddDebtor(Debtor debtor);
         Task AddCredit(Credit credit);
         Task<DeleteResult> DeleteDebtor(Debtor debtor);

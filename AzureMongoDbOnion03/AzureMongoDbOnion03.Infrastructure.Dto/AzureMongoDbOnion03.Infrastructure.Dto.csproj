@@ -52,9 +52,9 @@
     <Compile Include="Model\Base\BaseModel.cs" />
     <Compile Include="Model\Credit.cs" />
     <Compile Include="Model\Debtor.cs" />
+    <Compile Include="Model\Role.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Role.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

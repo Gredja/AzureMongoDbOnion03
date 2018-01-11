@@ -16,7 +16,7 @@ using User = AzureMongoDbOnion03.Domain.User;
 
 namespace AzureMongoDbOnion03.Controllers
 {
-   // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IDbService _dbService;
@@ -60,7 +60,7 @@ namespace AzureMongoDbOnion03.Controllers
                 NewCredit = new Credit()
             };
 
-            _logger.LogInformation("!!!!Start", "Index");
+            _logger.LogInformation("Start", "Index");
 
             return View(viewModel);
         }
@@ -69,8 +69,13 @@ namespace AzureMongoDbOnion03.Controllers
         {
             if (!_dbService.RoleCollectionExistence())
             {
-                //await _dbService.AddRole(new Role { Id = (int)Roles.Admin, Name = Roles.Admin.ToString() });
-                //await _dbService.AddRole(new Role { Id = (int)Roles.User, Name = Roles.User.ToString() });
+                IEnumerable<Role> roles = new List<Role>()
+                {
+                    new Role { Id = ((int)Roles.Admin).ToString(), Name = Roles.Admin.ToString() },
+                    new Role { Id = ((int)Roles.User).ToString(), Name = Roles.User.ToString() }
+                };
+
+                await _dbService.AddRoles(roles);
             }
 
             if (!_dbService.UserCollectionExistence())

@@ -39,6 +39,11 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
             await _context.Collection.InsertOneAsync(t);
         }
 
+       public async Task AddMany(IEnumerable<T> t)
+        {
+            await _context.Collection.InsertManyAsync(t);
+        }
+
         public async Task<DeleteResult> DeleteOne(string id)
         {
             var filter = Builders<T>.Filter.Eq("Id", id);
