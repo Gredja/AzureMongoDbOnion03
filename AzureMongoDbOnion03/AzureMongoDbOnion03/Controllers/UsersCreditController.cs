@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebSockets.Internal;
-using Newtonsoft.Json;
-using JsonConvert = MongoDB.Bson.IO.JsonConvert;
+using static System.Diagnostics.Contracts.Contract;
 
 namespace AzureMongoDbOnion03.Controllers
 {
@@ -36,7 +32,7 @@ namespace AzureMongoDbOnion03.Controllers
 
             var credits = await _dbService.GetAllCreditsByDebtorId(userId);
 
-            var sumAmount = CreateAmmoutSum(credits);
+            var sumAmount = CreateAmmoutSum(null);
             var userCreditsViewModel  = new UserCreditsViewModel
             {
                 Credits = sumAmount
@@ -47,6 +43,8 @@ namespace AzureMongoDbOnion03.Controllers
 
         private IEnumerable<Credit> CreateAmmoutSum(IEnumerable<Credit> credits)
         {
+            Requires<ArgumentNullException>(credits != null);
+
             var sumAmount = from credit in credits
                 group credit by credit.Currency
                 into res
@@ -57,6 +55,13 @@ namespace AzureMongoDbOnion03.Controllers
                 };
 
             return sumAmount;
+        }
+
+        [Pure]
+        [ContractInvariantMethod]
+        private void ContractInvariant()
+        {
+            Invariant(this._dbService != null);
         }
     }
 }

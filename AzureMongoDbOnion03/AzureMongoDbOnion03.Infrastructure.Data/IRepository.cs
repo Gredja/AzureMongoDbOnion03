@@ -6,6 +6,7 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
 {
     public interface IRepository<T> where T : class
     {
+        bool CheckExistence();
         Task<IEnumerable<T>> GetAll();
         Task<T> GetOne(string id);
         Task AddOne(T t);

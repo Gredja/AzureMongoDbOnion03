@@ -51,7 +51,7 @@ namespace AzureMongoDbOnion03.Controllers
                     Id = Guid.NewGuid().ToString(),
                     ForeignId = debtors.FirstOrDefault(x => x.Id == usersViewModel.SelectedDebtorId)?.Id,
                     Password = usersViewModel.NewUser.Password,
-                    Role = new Role(Roles.User) 
+                    RoleId = int.Parse(_dbService.GetAllRoles().Result.FirstOrDefault(x => x.Name == Roles.Admin.ToString()).Id)
                 };
 
                 await _dbService.AddUser(user);

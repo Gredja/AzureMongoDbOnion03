@@ -1,5 +1,4 @@
-﻿using AzureMongoDbOnion03.Helpers;
-using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
+﻿using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
@@ -15,6 +14,7 @@ namespace AzureMongoDbOnion03.Infrastructure.Dto.Model
         [BsonRequired]
         public string Password { get; set; }
 
-        public Role Role { get; set; }
+        [BsonRequired]
+        public int RoleId { get; set; }
     }
 }

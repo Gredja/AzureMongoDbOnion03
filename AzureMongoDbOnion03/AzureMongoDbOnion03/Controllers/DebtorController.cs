@@ -4,6 +4,7 @@ using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static System.Diagnostics.Contracts.Contract;
 
 namespace AzureMongoDbOnion03.Controllers
 {
@@ -27,6 +28,8 @@ namespace AzureMongoDbOnion03.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDebtor(Debtor debtor)
         {
+            Requires<ArgumentNullException>(debtor != null);
+
             if (ModelState.IsValid)
             {
                 await _dbService.AddDebtor(new Debtor

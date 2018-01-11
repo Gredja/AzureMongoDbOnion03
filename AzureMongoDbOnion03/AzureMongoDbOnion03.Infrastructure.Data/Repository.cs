@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Infrastructure.Data.Helpers;
 using AzureMongoDbOnion03.Infrastructure.Data.Model;
 using AzureMongoDbOnion03.Infrastructure.Dto.Model.Base;
-using ILog;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -16,6 +16,11 @@ namespace AzureMongoDbOnion03.Infrastructure.Data
         public Repository(IOptions<Settings> settings)
         {
             _context = new MongoDbContex<T>(settings);
+        }
+
+        public bool CheckExistence()
+        {
+            return _context.Collection.Find(_ => true).ToList().Any();
         }
 
         public async Task<IEnumerable<T>> GetAll()

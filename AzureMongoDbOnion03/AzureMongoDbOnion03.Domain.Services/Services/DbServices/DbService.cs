@@ -14,16 +14,33 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         private readonly IRepository<Dto.Debtor> _debtorRepository;
         private readonly IRepository<Dto.Credit> _creditRepository;
         private readonly IRepository<Dto.User> _userRepository;
+        private readonly IRepository<Dto.Role> _roleRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
-        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> userRepository, IMapper mapper, ILogger<DbService> logger)
+        public DbService(IRepository<Dto.Debtor> debtorRepository, IRepository<Dto.Credit> creditRepository, IRepository<Dto.User> userRepository, IRepository<Dto.Role> roleRepository, IMapper mapper, ILogger<DbService> logger)
         {
             _debtorRepository = debtorRepository;
             _creditRepository = creditRepository;
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
             _mapper = mapper;
             _logger = logger;
+        }
+
+        public bool RoleCollectionExistence()
+        {
+            return  _roleRepository.CheckExistence();
+        }
+
+        public  bool UserCollectionExistence()
+        {
+            return _userRepository.CheckExistence();
+        }
+
+        public async Task<IEnumerable<Dto.Role>> GetAllRoles()
+        {
+            return await _roleRepository.GetAll();
         }
 
         public async Task<IEnumerable<Debtor>> GetAllDebtors()
@@ -61,6 +78,11 @@ namespace AzureMongoDbOnion03.Domain.Services.Services.DbServices
         {
             var dtoUsers = await _userRepository.GetAll();
             return _mapper.Map<IEnumerable<Dto.User>, IEnumerable<User>>(dtoUsers);
+        }
+
+        public async Task AddRole(Dto.Role role)
+        {
+            await _roleRepository.AddOne(role);
         }
 
         public async Task AddDebtor(Debtor debtor)

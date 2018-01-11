@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.IO;
 using AutoMapper;
 using AzureMongoDbOnion03.Domain.Services;
@@ -7,7 +8,6 @@ using AzureMongoDbOnion03.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,10 +56,13 @@ namespace AzureMongoDbOnion03
             );
 
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log", "log.txt"));
-            loggerFactory.CreateLogger("FileLogger");
+           var logger = loggerFactory.CreateLogger("FileLogger");
 
-            //app.Run(async (context) =>
-
+            Contract.ContractFailed += (sender, e) =>
+            {
+                logger.LogError(e.Message);
+                e.SetHandled();
+            };
 
             app.UseDeveloperExceptionPage();
 

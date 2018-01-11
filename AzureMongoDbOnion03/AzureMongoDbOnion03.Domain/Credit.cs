@@ -2,8 +2,9 @@
 
 namespace AzureMongoDbOnion03.Domain
 {
-   public class Credit
+    public class Credit 
     {
+        [Required]
         public string Id { get; set; }
 
         public string ForeignId { get; set; }

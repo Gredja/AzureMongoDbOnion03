@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Domain;
@@ -37,7 +38,7 @@ namespace AzureMongoDbOnion03.Controllers
                 {
                     await Authenticate(regUser);
 
-                    if (regUser.Role.Name == Roles.Admin.ToString())
+                    if (regUser.RoleId == (int)Roles.Admin)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -61,7 +62,7 @@ namespace AzureMongoDbOnion03.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimTypes.Role, user.Role?.Name)
+                new Claim(ClaimTypes.Role, user.RoleId.ToString())
             };
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
