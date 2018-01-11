@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,8 +42,6 @@ namespace AzureMongoDbOnion03.Controllers
 
         private IEnumerable<Credit> CreateAmmoutSum(IEnumerable<Credit> credits)
         {
-            Requires<ArgumentNullException>(credits != null);
-
             var sumAmount = from credit in credits
                 group credit by credit.Currency
                 into res

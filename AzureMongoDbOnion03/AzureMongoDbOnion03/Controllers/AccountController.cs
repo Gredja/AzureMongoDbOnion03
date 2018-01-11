@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AzureMongoDbOnion03.Application.Services.Aunification;
@@ -8,7 +7,6 @@ using AzureMongoDbOnion03.Application.Services.Models;
 using AzureMongoDbOnion03.Domain;
 using AzureMongoDbOnion03.Domain.Services.Services.DbServices;
 using AzureMongoDbOnion03.Helpers;
-using AzureMongoDbOnion03.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
